@@ -62,7 +62,7 @@ jobs:
         echo "Déplacement du contenu de $WEBSITE_ROOT_DIR vers la racine du dépôt..."
         # Utiliser rsync pour déplacer et fusionner les répertoires de manière plus robuste
         rsync -av --remove-source-files "$WEBSITE_ROOT_DIR/" .
-        rmdir "$MIRROR_DIR" # Supprimer le répertoire temporaire vide
+        rm -fr "$MIRROR_DIR" # Supprimer le répertoire temporaire vide
 
     - name: Configure Git
       run: |
