@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Michelle Henault | michellehenault.ca</title>
+  <meta name="description" content="Site officiel de Michelle Henault. Découvrez son portfolio, son parcours et ses informations de contact.">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      color: #222;
+    }
+    header {
+      background: #222;
+      color: #fff;
+      padding: 2rem 0 1rem 0;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0.2em 0 0.1em 0;
+      font-size: 2.5rem;
+    }
+    header p {
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 300;
+    }
+    .lang-switch {
+      margin: 1rem 0 0.5rem 0;
+      text-align: right;
+      max-width: 750px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .lang-switch a {
+      color: #2d7dda;
+      margin-left: 1em;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+    .lang-switch a.active {
+      font-weight: bold;
+      color: #111;
+      text-decoration: underline;
+    }
+    main {
+      max-width: 750px;
+      margin: 2rem auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      padding: 2rem;
+    }
+    section {
+      margin-bottom: 2rem;
+    }
+    h2 {
+      border-bottom: 1px solid #ececec;
+      padding-bottom: 0.4em;
+      margin-bottom: 1em;
+      color: #444;
+      font-size: 1.4rem;
+    }
+    ul {
+      padding-left: 1.2em;
+    }
+    a {
+      color: #2d7dda;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .contact-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5em;
+    }
+    .contact-info div {
+      flex: 1 0 200px;
+    }
+    @media (max-width: 600px) {
+      main { padding: 1em; }
+      .contact-info { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Michelle Henault</h1>
+    <p>Bienvenue sur michellehenault.ca &mdash; le nouveau site officiel de Michelle Henault</p>
+  </header>
+  <div class="lang-switch">
+    <span class="active">FR</span> | <a href="#" onclick="switchToEnglish();return false;">EN</a>
+  </div>
+  <main id="main-content">
+    <section>
+      <h2>À propos</h2>
+      <p>
+        Bonjour, je m'appelle Michelle Henault. Ceci est mon site officiel, servant de point central pour mon portfolio professionnel, mon parcours et mes informations de contact. Veuillez noter : michellehenault.com a été remplacé par michellehenault.ca.
+      </p>
+    </section>
+    <section>
+      <h2>Portfolio</h2>
+      <ul>
+        <li>Projet 1 &ndash; <a href="#">Description ou lien</a></li>
+        <li>Projet 2 &ndash; <a href="#">Description ou lien</a></li>
+        <li>Projet 3 &ndash; <a href="#">Description ou lien</a></li>
+        <!-- Ajoutez d'autres projets si nécessaire -->
+      </ul>
+    </section>
+    <section>
+      <h2>Parcours</h2>
+      <p>
+        [Insérez ici une courte biographie de Michelle Henault. Remplacez ce texte par des informations sur la formation, l'expérience ou les domaines d'expertise.]
+      </p>
+    </section>
+    <section>
+      <h2>Contact</h2>
+      <div class="contact-info">
+        <div>
+          <strong>Courriel :</strong><br>
+          <a href="mailto:info@michellehenault.ca">info@michellehenault.ca</a>
+        </div>
+        <div>
+          <strong>LinkedIn :</strong><br>
+          <a href="https://www.linkedin.com/in/michellehenault" target="_blank" rel="noopener">linkedin.com/in/michellehenault</a>
+        </div>
+        <!-- Ajoutez d'autres moyens de contact ou liens sociaux si nécessaire -->
+      </div>
+    </section>
+    <section>
+      <h2>Note</h2>
+      <p>
+        Si vous recherchez du contenu précédemment hébergé sur michellehenault.com, veuillez mettre à jour vos favoris. Toutes les informations et mises à jour seront désormais exclusivement disponibles sur <strong>michellehenault.ca</strong>.
+      </p>
+    </section>
+  </main>
+  <footer style="text-align:center;padding:1.5em 0 1em 0;color:#888;">
+    &copy; 2025 Michelle Henault. Tous droits réservés.
+  </footer>
+  <script>
+    // Simple bilingual switch (client-side only)
+    function switchToEnglish() {
+      document.documentElement.lang = 'en';
+      document.querySelector('.lang-switch').innerHTML =
+        '<a href="#" onclick="switchToFrench();return false;">FR</a> | <span class="active">EN</span>';
+      document.getElementById('main-content').innerHTML = `
+        <section>
+          <h2>About</h2>
+          <p>
+            Hello, I'm Michelle Henault. This is my official website, serving as the central place for my professional portfolio, background, and contact information. Please note: michellehenault.com has been replaced by michellehenault.ca.
+          </p>
+        </section>
+        <section>
+          <h2>Portfolio</h2>
+          <ul>
+            <li>Project 1 &ndash; <a href="#">Description or link</a></li>
+            <li>Project 2 &ndash; <a href="#">Description or link</a></li>
+            <li>Project 3 &ndash; <a href="#">Description or link</a></li>
+          </ul>
+        </section>
+        <section>
+          <h2>Background</h2>
+          <p>
+            [Insert a brief bio about Michelle Henault here. Replace this placeholder with details about education, experience, or areas of expertise.]
+          </p>
+        </section>
+        <section>
+          <h2>Contact</h2>
+          <div class="contact-info">
+            <div>
+              <strong>Email:</strong><br>
+              <a href="mailto:info@michellehenault.ca">info@michellehenault.ca</a>
+            </div>
+            <div>
+              <strong>LinkedIn:</strong><br>
+              <a href="https://www.linkedin.com/in/michellehenault" target="_blank" rel="noopener">linkedin.com/in/michellehenault</a>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h2>Notice</h2>
+          <p>
+            If you are looking for content previously hosted at michellehenault.com, please update your bookmarks. All information and updates will now be available exclusively at <strong>michellehenault.ca</strong>.
+          </p>
+        </section>
+      `;
+      document.querySelector('footer').innerHTML = '&copy; 2025 Michelle Henault. All rights reserved.';
+      document.querySelector('header p').innerHTML = 'Welcome to michellehenault.ca &mdash; the new official website of Michelle Henault';
+    }
+    function switchToFrench() {
+      document.documentElement.lang = 'fr';
+      document.querySelector('.lang-switch').innerHTML =
+        '<span class="active">FR</span> | <a href="#" onclick="switchToEnglish();return false;">EN</a>';
+      document.getElementById('main-content').innerHTML = `
+        <section>
+          <h2>À propos</h2>
+          <p>
+            Bonjour, je m'appelle Michelle Henault. Ceci est mon site officiel, servant de point central pour mon portfolio professionnel, mon parcours et mes informations de contact. Veuillez noter : michellehenault.com a été remplacé par michellehenault.ca.
+          </p>
+        </section>
+        <section>
+          <h2>Portfolio</h2>
+          <ul>
+            <li>Projet 1 &ndash; <a href="#">Description ou lien</a></li>
+            <li>Projet 2 &ndash; <a href="#">Description ou lien</a></li>
+            <li>Projet 3 &ndash; <a href="#">Description ou lien</a></li>
+          </ul>
+        </section>
+        <section>
+          <h2>Parcours</h2>
+          <p>
+            [Insérez ici une courte biographie de Michelle Henault. Remplacez ce texte par des informations sur la formation, l'expérience ou les domaines d'expertise.]
+          </p>
+        </section>
+        <section>
+          <h2>Contact</h2>
+          <div class="contact-info">
+            <div>
+              <strong>Courriel :</strong><br>
+              <a href="mailto:info@michellehenault.ca">info@michellehenault.ca</a>
+            </div>
+            <div>
+              <strong>LinkedIn :</strong><br>
+              <a href="https://www.linkedin.com/in/michellehenault" target="_blank" rel="noopener">linkedin.com/in/michellehenault</a>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h2>Note</h2>
+          <p>
+            Si vous recherchez du contenu précédemment hébergé sur michellehenault.com, veuillez mettre à jour vos favoris. Toutes les informations et mises à jour seront désormais exclusivement disponibles sur <strong>michellehenault.ca</strong>.
+          </p>
+        </section>
+      `;
+      document.querySelector('footer').innerHTML = '&copy; 2025 Michelle Henault. Tous droits réservés.';
+      document.querySelector('header p').innerHTML = 'Bienvenue sur michellehenault.ca &mdash; le nouveau site officiel de Michelle Henault';
+    }
+  </script>
+</body>
+</html>
