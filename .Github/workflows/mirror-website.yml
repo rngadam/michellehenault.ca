@@ -1,0 +1,82 @@
+name: Mirror Website
+
+on:
+  workflow_dispatch:
+    inputs:
+      website_url:
+        description: 'URL du site web à miroiter (exemple: https://www.example.com)'
+        required: true
+        default: 'https://www.google.com' # Remplacez par un URL par défaut pertinent
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install wget
+      run: sudo apt-get update && sudo apt-get install -y wget
+
+    - name: Mirror website
+      run: |
+        # Créer un répertoire temporaire pour stocker le site web
+        MIRROR_DIR="mirror_output"
+        mkdir -p "$MIRROR_DIR"
+
+        # Télécharger le site web de manière récursive
+        # --mirror : active le miroir récursif
+        # --convert-links : convertit les liens pour qu'ils soient relatifs
+        # --html-extension : ajoute .html aux fichiers qui n'en ont pas
+        # --page-requisites : télécharge toutes les ressources (images, CSS, JS)
+        # --no-clobber : ne surcharge pas les fichiers existants
+        # --adjust-extension : ajuste les extensions de fichiers
+        # --restrict-file-names=windows : gère les noms de fichiers compatibles Windows
+        wget \
+          --mirror \
+          --convert-links \
+          --html-extension \
+          --page-requisites \
+          --no-clobber \
+          --restrict-file-names=windows \
+          --directory-prefix="$MIRROR_DIR" \
+          "${{ github.event.inputs.website_url }}"
+
+        # Déplacer le contenu du site miroité à la racine du dépôt
+        # Nous devons trouver le sous-répertoire créé par wget (souvent le nom de l'hôte)
+        # et déplacer son contenu.
+        # Attention : cela pourrait écraser des fichiers existants à la racine.
+        # Il est fortement recommandé de faire cela dans un dépôt dédié au miroir.
+        echo "Contenu de $MIRROR_DIR :"
+        ls -l "$MIRROR_DIR"
+
+        # Trouver le sous-répertoire racine créé par wget (souvent le nom de domaine)
+        WEBSITE_ROOT_DIR=$(find "$MIRROR_DIR" -maxdepth 1 -mindepth 1 -type d -print -quit)
+
+        if [ -z "$WEBSITE_ROOT_DIR" ]; then
+          echo "Erreur: Aucun répertoire racine de site web trouvé par wget."
+          exit 1
+        fi
+
+        echo "Déplacement du contenu de $WEBSITE_ROOT_DIR vers la racine du dépôt..."
+        # Utiliser rsync pour déplacer et fusionner les répertoires de manière plus robuste
+        rsync -av --remove-source-files "$WEBSITE_ROOT_DIR/" .
+        rmdir "$MIRROR_DIR" # Supprimer le répertoire temporaire vide
+
+    - name: Configure Git
+      run: |
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+
+    - name: Add and commit mirrored files
+      run: |
+        git add .
+        git commit -m "Miroir du site : ${{ github.event.inputs.website_url }}" || echo "Aucun changement à commiter."
+
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref_name }} # Utilise la branche actuelle
+
