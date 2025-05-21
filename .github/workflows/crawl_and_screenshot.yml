@@ -23,9 +23,11 @@ jobs:
       - name: Install dependencies
         run: |
           pip install requests beautifulsoup4 selenium webdriver-manager
-          # Install Chrome Driver
+          # Install Chrome using apt
+          wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+          sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
           sudo apt-get update
-          sudo apt-get install -y chromium-chromedriver
+          sudo apt-get install -y google-chrome-stable
 
       - name: Crawl and Screenshot
         env:
@@ -35,6 +37,7 @@ jobs:
           from bs4 import BeautifulSoup
           from selenium import webdriver
           from selenium.webdriver.chrome.service import Service as ChromeService
+          from selenium.webdriver.chrome.options import Options as ChromeOptions
           from webdriver_manager.chrome import ChromeDriverManager
           import os
           import time
@@ -50,11 +53,18 @@ jobs:
           screenshots_dir = "screenshots"
           os.makedirs(screenshots_dir, exist_ok=True)
 
-          chrome_options = webdriver.ChromeOptions()
+          chrome_options = ChromeOptions()
           chrome_options.add_argument('--headless')
           chrome_options.add_argument('--no-sandbox')
           chrome_options.add_argument('--disable-dev-shm-usage')
-          driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
+          driver = webdriver.Chrome(service=ChromeService('/usr/bin/chromedriver'), options=chrome_options)
+
+          # Try to install ChromeDriver if not found
+          try:
+              webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
+          except Exception as e:
+              print(f"ChromeDriver not automatically installed: {e}")
+              print("Assuming ChromeDriver is in /usr/bin/chromedriver")
 
           while urls_to_visit:
               current_url = urls_to_visit.pop(0)
