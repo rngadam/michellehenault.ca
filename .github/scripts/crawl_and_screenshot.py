@@ -7,6 +7,13 @@ from webdriver_manager.chrome import ChromeDriverManager
 import os
 import time
 
+def capture_full_page_screenshot(driver, filepath):
+    """Captures a full webpage screenshot."""
+    sroll_width = driver.execute_script("return document.body.scrollWidth")
+    scroll_height = driver.execute_script("return document.body.scrollHeight")
+    driver.set_window_size(sroll_width, scroll_height)
+    driver.get_screenshot_as_file(filepath)
+
 website_url = os.environ.get("WEBSITE_URL")
 if not website_url:
     print("Error: WEBSITE_URL environment variable not set.")
@@ -44,15 +51,15 @@ while urls_to_visit:
         response.raise_for_status()
         soup = BeautifulSoup(response.text, 'html.parser')
 
-        # Take screenshot
+        # Take full page screenshot
         try:
             driver.get(current_url)
             time.sleep(2) # Give the page time to load
             filename = os.path.join(screenshots_dir, current_url.replace("https://", "").replace("http://", "").replace("/", "_") + ".png")
-            driver.save_screenshot(filename)
-            print(f"Screenshot saved: {filename}")
+            capture_full_page_screenshot(driver, filename)
+            print(f"Full page screenshot saved: {filename}")
         except Exception as e:
-            print(f"Error taking screenshot of {current_url}: {e}")
+            print(f"Error taking full page screenshot of {current_url}: {e}")
 
         # Find all links on the page
         for link in soup.find_all('a', href=True):
