@@ -43,13 +43,14 @@ def process_html_file(filepath, outdir, dry_run=False, debug=False):
     # Suppression des balises <style> et de leur contenu
     raw_html = re.sub(r'<style.*?>.*?</style>', '', raw_html, flags=re.DOTALL|re.IGNORECASE)
     raw_html = re.sub(r'<script.*?>.*?</script>', '', raw_html, flags=re.DOTALL|re.IGNORECASE)
-    # Suppression des balises <link> vers wix.com/favicon.ico et <meta name="generator" ... Wix.com Website Builder>
-    raw_html = re.sub(
-        r'<link[^>]+href="https://www\\.wix\\.com/favicon\\.ico"[^>]*>', '', raw_html, flags=re.IGNORECASE)
-    raw_html = re.sub(
-        r'<meta[^>]+content="Wix\\.com Website Builder"[^>]*name="generator"[^>]*>', '', raw_html, flags=re.IGNORECASE)
-    raw_html = re.sub(
-        r'<meta[^>]+name="generator"[^>]*content="Wix\\.com Website Builder"[^>]*>', '', raw_html, flags=re.IGNORECASE)
+    # Suppression de balises inutiles ou Wix avant traitement
+    raw_html = re.sub(r'<meta[^>]+id="wixDesktopViewport"[^>]*>', '', raw_html, flags=re.IGNORECASE)
+    raw_html = re.sub(r'<meta[^>]+http-equiv="X-UA-Compatible"[^>]*>', '', raw_html, flags=re.IGNORECASE)
+    raw_html = re.sub(r'<meta[^>]+content="Wix\.com Website Builder"[^>]*name="generator"[^>]*>', '', raw_html, flags=re.IGNORECASE)
+    raw_html = re.sub(r'<link[^>]+href="https://www\\.wix\\.com/favicon\\.ico"[^>]*>', '', raw_html, flags=re.IGNORECASE)
+    raw_html = re.sub(r'<meta[^>]+http-equiv="X-Wix-Meta-Site-Id"[^>]*>', '', raw_html, flags=re.IGNORECASE)
+    raw_html = re.sub(r'<meta[^>]+http-equiv="X-Wix-Application-Instance-Id"[^>]*>', '', raw_html, flags=re.IGNORECASE)
+    raw_html = re.sub(r'<meta[^>]+http-equiv="X-Wix-Published-Version"[^>]*>', '', raw_html, flags=re.IGNORECASE)
 
     soup = BeautifulSoup(raw_html, "html.parser")
     if debug:
@@ -181,6 +182,11 @@ def process_html_file(filepath, outdir, dry_run=False, debug=False):
         r'<ul>\s*<li>\s*<a>\s*<img alt="Instagram Social Icon"\s*/>\s*</a>\s*</li>\s*</ul>',
         '<a href="https://www.instagram.com/henault.michelle/?hl=en" target="_blank" rel="noopener noreferrer" style="display:inline-block;vertical-align:middle;"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" style="width:32px;height:32px;border-radius:6px;vertical-align:middle;"/></a>',
         html_result, flags=re.DOTALL|re.MULTILINE)
+    # Ajout des liens et icônes Facebook et LinkedIn à côté d'Instagram dans le header (après traitement BeautifulSoup)
+    html_result = re.sub(
+        r'(<a href="https://www.instagram.com/henault.michelle/\?hl=en"[^>]*><img [^>]+></a>)',
+        r'\1<a href="https://www.facebook.com/michellehenaultartistepeintre" target="_blank" rel="noopener noreferrer" style="display:inline-block;vertical-align:middle;margin-right:8px;"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" style="width:32px;height:32px;border-radius:6px;vertical-align:middle;background:#fff;"/></a><a href="https://www.linkedin.com/in/michelle-h%C3%A9nault" target="_blank" rel="noopener noreferrer" style="display:inline-block;vertical-align:middle;"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn" style="width:32px;height:32px;border-radius:6px;vertical-align:middle;background:#fff;"/></a>',
+        html_result, flags=re.DOTALL)
     # Écriture du fichier
     if not os.path.exists(outdir):
         if dry_run:
