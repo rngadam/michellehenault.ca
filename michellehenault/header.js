@@ -66,18 +66,6 @@ async function injectHeader() {
               <span class="mh-artist-role">
                 artiste peintre -
               </span>
-              <span class="mh-artist-role-en">
-                painter -
-              </span>
-              <span class="mh-artist-role-fr">
-                artiste peintre -
-              </span>
-              <span class="mh-artist-role-en">
-                oil painting -
-              </span>
-              <span class="mh-artist-role-fr">
-               artiste peintre -
-              </span>
               <span>
                <br/>
                <span>
