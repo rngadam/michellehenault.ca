@@ -53,7 +53,7 @@ async function navHTML() {
 // Fonction principale d'injection du header
 async function injectHeader() {
   // Chercher un header existant (par classe ou balise header)
-  let oldHeader = document.querySelector('.mh-header-common, .mh-header-section, header');
+  let oldHeader = document.querySelector('header');
 
   oldHeader.innerHTML = `
     <div class="mh-header-inner">
