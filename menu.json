@@ -1,20 +1,20 @@
 [
-  { "label": "Accueil", "href": "/michellehenault/home/index.html" },
-  { "label": "CV", "href": "/michellehenault/cv/index.html" },
+  { "label": "Accueil", "href": "/home/index.html" },
+  { "label": "CV", "href": "/cv/index.html" },
   { "label": "Œuvres", "children": [
-    { "label": "2022-2023", "href": "/michellehenault/2022-2023-en-cours/index.html" },
-    { "label": "2020", "href": "/michellehenault/2020-en-cours/index.html" },
-    { "label": "2019", "href": "/michellehenault/2019-en-cours/index.html" },
-    { "label": "2016-2017", "href": "/michellehenault/2016-2017/index.html" },
-    { "label": "2015", "href": "/michellehenault/2015/index.html" },
-    { "label": "Migrations", "href": "/michellehenault/migrations/index.html" },
-    { "label": "Laguna Verde", "href": "/michellehenault/laguna-verde/index.html" },
-    { "label": "Œuvres sur papier", "href": "/michellehenault/oeuvres-sur-papier/index.html" },
-    { "label": "Cartes de vœux", "href": "/michellehenault/cartes-de-voeux-blank-cards/index.html" }
+    { "label": "2022-2023", "href": "/2022-2023-en-cours/index.html" },
+    { "label": "2020", "href": "/2020-en-cours/index.html" },
+    { "label": "2019", "href": "/2019-en-cours/index.html" },
+    { "label": "2016-2017", "href": "/2016-2017/index.html" },
+    { "label": "2015", "href": "/2015/index.html" },
+    { "label": "Migrations", "href": "/migrations/index.html" },
+    { "label": "Laguna Verde", "href": "/laguna-verde/index.html" },
+    { "label": "Œuvres sur papier", "href": "/oeuvres-sur-papier/index.html" },
+    { "label": "Cartes de vœux", "href": "/cartes-de-voeux-blank-cards/index.html" }
   ]},
-  { "label": "Presse", "href": "/michellehenault/presse/index.html" },
-  { "label": "Expositions", "href": "/michellehenault/exposition/index.html" },
-  { "label": "Exposition 2024 (photos)", "href": "/michellehenault/exposition-2024-photos/index.html" },
-  { "label": "Entrevue", "href": "/michellehenault/entrevue/index.html" },
-  { "label": "À propos", "href": "/michellehenault/about-5/index.html" }
+  { "label": "Presse", "href": "/presse/index.html" },
+  { "label": "Expositions", "href": "/exposition/index.html" },
+  { "label": "Exposition 2024 (photos)", "href": "/exposition-2024-photos/index.html" },
+  { "label": "Entrevue", "href": "/entrevue/index.html" },
+  { "label": "À propos", "href": "/about-5/index.html" }
 ]
