@@ -1,0 +1,429 @@
+/* Michelle Hénault - 2013 - Style artistique et chaleureux */
+
+body.mh-body {
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  background: linear-gradient(135deg, #ffe9b3 0%, #ffd59e 60%, #fffbe6 100%);
+  color: #181818;
+  margin: 0;
+  padding: 0;
+}
+
+.mh-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  background: #fffbe6;
+  box-shadow: 0 4px 32px rgba(255, 180, 60, 0.10);
+  border-radius: 22px;
+  padding: 36px 24px 48px 24px;
+  border: 1.5px solid #ffe1a8;
+}
+
+.mh-header-section {
+  background: linear-gradient(120deg, #ffe066 0%, #ffb347 40%, #ff8c42 100%);
+  border-radius: 22px 22px 0 0;
+  padding: 38px 0 22px 0;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+}
+.mh-header-section::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(circle at 80% 20%, #7ee8fa 0%, transparent 60%),
+    radial-gradient(circle at 20% 80%, #f6d365 0%, transparent 70%),
+    radial-gradient(circle at 60% 60%, #ffb5a7 0%, transparent 60%),
+    radial-gradient(circle at 30% 30%, #b5ead7 0%, transparent 60%),
+    radial-gradient(circle at 70% 80%, #ff6392 0%, transparent 70%),
+    radial-gradient(circle at 90% 60%, #6ec6ff 0%, transparent 70%);
+  opacity: 0.22;
+  z-index: 0;
+}
+
+.mh-header-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.mh-header-title {
+  text-align: center;
+}
+
+.mh-artist-name {
+  font-size: 2.3rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #181818;
+  margin-bottom: 0.2em;
+}
+
+.mh-title {
+  font-size: 2.7rem;
+  font-weight: 800;
+  margin: 0.2em 0 0.1em 0;
+  color: #ff8c42;
+  letter-spacing: 0.06em;
+  text-shadow: 0 2px 8px #fffbe6;
+}
+
+.mh-title-desc {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #6b5c3e;
+  margin: 0.2em 0 0.8em 0;
+}
+
+.mh-social {
+  margin-top: 14px;
+}
+.mh-instagram-link,
+.mh-facebook-link,
+.mh-linkedin-link {
+  display: inline-block;
+  transition: transform 0.2s;
+}
+.mh-instagram-link:hover,
+.mh-facebook-link:hover,
+.mh-linkedin-link:hover {
+  transform: scale(1.12) rotate(-6deg);
+}
+.mh-instagram-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(255, 140, 66, 0.18);
+  background: #fffbe6;
+}
+.mh-facebook-icon,
+.mh-linkedin-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(255, 140, 66, 0.13);
+  object-fit: contain;
+  background: #fffbe6;
+}
+
+.mh-main {
+  padding: 0 0 24px 0;
+}
+.mh-main-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.mh-section-wrapper {
+  width: 100%;
+}
+.mh-section-content {
+  background: #fff;
+  border-radius: 14px;
+  padding: 36px 24px;
+  margin-bottom: 28px;
+  box-shadow: 0 2px 12px rgba(255, 180, 60, 0.08);
+  border: 1.5px solid #ffe1a8;
+}
+
+.mh-section-title {
+  font-size: 2rem;
+  color: #ff8c42;
+  font-weight: 700;
+  margin-bottom: 0.6em;
+}
+
+.mh-section-article-text {
+  font-size: 1.13rem;
+  line-height: 1.7;
+  color: #181818;
+  margin-bottom: 1.5em;
+}
+
+.mh-section-oeuvres {
+  margin-top: 2em;
+}
+.mh-oeuvres-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.mh-oeuvres-block {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px 24px;
+  align-items: flex-start;
+}
+.mh-oeuvres-territoires, .mh-oeuvres-migrations {
+  flex: 1 1 220px;
+  background: #fffbe6;
+  border-radius: 8px;
+  padding: 16px 18px;
+  box-shadow: 0 1px 6px rgba(255, 180, 60, 0.07);
+}
+.mh-oeuvre-territoires {
+  border-left: 6px solid #ffb347;
+  background: #fffbe6;
+}
+.mh-oeuvre-migrations {
+  border-left: 6px solid #6ec6ff;
+  background: #eafcff;
+}
+.mh-oeuvres-serie {
+  font-size: 1.1rem;
+  color: #ff8c42;
+  font-weight: 600;
+}
+.mh-oeuvres-titre {
+  font-size: 1.3rem;
+  color: #2d2d2d;
+  margin: 0.2em 0 0.5em 0;
+}
+.mh-oeuvres-list {
+  flex: 2 1 340px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.mh-oeuvre-item {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 6px rgba(255, 180, 60, 0.08);
+  padding: 18px 16px;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+.mh-oeuvre-details {
+  flex: 1;
+}
+.mh-oeuvre-meta {
+  margin-bottom: 0.5em;
+}
+.mh-oeuvre-nom {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ff8c42;
+}
+.mh-oeuvre-annee, .mh-oeuvre-tech, .mh-oeuvre-dim {
+  font-size: 1rem;
+  color: #7a6a4f;
+  margin: 0.1em 0;
+}
+.mh-oeuvre-img {
+  margin: 0.5em 0 1em 0;
+  text-align: center;
+}
+.mh-img {
+  max-width: 320px;
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(255, 180, 60, 0.13);
+  margin-bottom: 0.5em;
+  transition: transform 0.2s;
+}
+.mh-img:hover {
+  transform: scale(1.04) rotate(-2deg);
+}
+
+.mh-atelier {
+  margin-top: 1.5em;
+  background: #fff;
+  border-radius: 8px;
+  padding: 14px 18px;
+  color: #444;
+  font-size: 1.08rem;
+  box-shadow: 0 1px 6px rgba(191,161,106,0.07);
+}
+.mh-atelier-info {
+  font-weight: 500;
+}
+
+/* === CV Michelle Hénault === */
+.mh-section-cv {
+  margin-top: 2em;
+}
+.mh-section-cv-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.mh-section-cv-content {
+  background: #fffbe6;
+  border-radius: 14px;
+  padding: 32px 24px;
+  box-shadow: 0 2px 12px rgba(255, 180, 60, 0.08);
+  border: 1.5px solid #ffe1a8;
+}
+.mh-section-cv-title {
+  text-align: center;
+  margin-bottom: 1.2em;
+}
+.mh-section-cv-photo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.2em;
+}
+.mh-section-cv-photo .mh-img {
+  max-width: 220px;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(255, 180, 60, 0.13);
+}
+.mh-section-cv-coord {
+  text-align: center;
+  margin-bottom: 1.5em;
+}
+.mh-cv-atelier, .mh-cv-mail, .mh-cv-tel {
+  font-size: 1.08rem;
+  color: #6b5c3e;
+  margin: 0.2em 0;
+}
+.mh-cv-mail a {
+  color: #ff8c42;
+  text-decoration: underline dotted;
+}
+.mh-cv-group {
+  margin-bottom: 1.8em;
+}
+.mh-cv-group-title {
+  font-size: 1.15rem;
+  color: #ff8c42;
+  font-weight: 600;
+  margin-bottom: 0.5em;
+}
+.mh-cv-group-item {
+  font-size: 1.05rem;
+  color: #181818;
+  margin: 0.2em 0 0.2em 1.2em;
+  position: relative;
+}
+.mh-cv-group-item:before {
+  content: '\2022';
+  color: #ffb347;
+  font-size: 1.1em;
+  position: absolute;
+  left: -1.2em;
+  top: 0.1em;
+}
+.mh-cv-photo-logo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  justify-content: center;
+  margin: 1.5em 0;
+}
+.mh-cv-photo-logo .mh-img {
+  max-width: 90px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(255, 180, 60, 0.10);
+  opacity: 0.55;
+  transition: opacity 0.2s;
+}
+.mh-cv-photo-logo .mh-img:hover {
+  opacity: 1;
+}
+
+.mh-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5em;
+}
+.mh-nav li {
+  position: relative;
+}
+.mh-nav a, .mh-nav span {
+  color: #b85c00;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.08em;
+  padding: 0.3em 0.7em;
+  border-radius: 8px;
+  transition: background 0.2s, color 0.2s;
+  cursor: pointer;
+}
+.mh-nav a:hover, .mh-nav span:hover {
+  background: linear-gradient(90deg,#ffe066 60%,#ffb347 100%);
+  color: #222;
+}
+.mh-has-submenu > span:after {
+  content: " ▼";
+  font-size: 0.8em;
+}
+.mh-has-submenu > ul {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 2.2em;
+  min-width: 180px;
+  background: #fffbe6;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  border-radius: 10px;
+  padding: 0.7em 0.2em;
+  z-index: 100;
+  flex-direction: column;
+  gap: 0;
+}
+.mh-has-submenu:hover > ul, .mh-has-submenu:focus-within > ul {
+  display: block;
+}
+.mh-has-submenu > span {
+  font-weight: 600;
+  color: #e08a00;
+  cursor: pointer;
+}
+.mh-nav ul ul {
+  flex-direction: column;
+  gap: 0.2em;
+}
+@media (max-width: 800px) {
+  .mh-container {
+    padding: 10px 2vw 24px 2vw;
+  }
+  .mh-oeuvres-block {
+    flex-direction: column;
+    gap: 18px;
+  }
+  .mh-section-content {
+    padding: 18px 6px;
+  }
+  .mh-section-cv-content {
+    padding: 18px 6px;
+  }
+  .mh-section-cv-inner {
+    gap: 18px;
+  }
+  .mh-nav ul {
+    flex-direction: column;
+    gap: 0.5em;
+  }
+  .mh-nav {
+    padding: 0.5em 0.2em;
+  }
+}
+@media (max-width: 500px) {
+  .mh-header-section {
+    padding: 18px 0 8px 0;
+  }
+  .mh-title {
+    font-size: 1.5rem;
+  }
+  .mh-section-title {
+    font-size: 1.2rem;
+  }
+  .mh-img {
+    max-width: 98vw;
+  }
+  .mh-section-cv-photo .mh-img {
+    max-width: 98vw;
+  }
+  .mh-cv-photo-logo .mh-img {
+    max-width: 60vw;
+  }
+}

@@ -5,7 +5,7 @@ import sys
 import argparse
 import requests
 from bs4 import BeautifulSoup
-from urllib.parse import urlparse
+from urllib.parse import urlparse, unquote
 
 WIX_URL = "https://michellehenault.wixsite.com/michellehenault/"
 TARGET_URL = "https://michellehenault.ca/michellehenault/"
@@ -172,7 +172,7 @@ def process_html_file(filepath, outdir, dry_run=False, debug=False):
     for img in pruned_body.find_all("img"):
         src = img.get("src")
         if src and re.match(r"https?://", src):
-            img_name = os.path.basename(urlparse(src).path)
+            img_name = os.path.basename(unquote(urlparse(src).path))
             img_dest = os.path.join(outdir, img_name)
             download_image(src, img_dest, dry_run, debug)
             img["src"] = img_name
