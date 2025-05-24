@@ -42,6 +42,15 @@ def process_html_file(filepath, outdir, dry_run=False, debug=False):
     raw_html = re.sub(r'<!--\$-->|<!--/\$-->|<!--.*?-->', '', raw_html, flags=re.DOTALL)
     # Suppression des balises <style> et de leur contenu
     raw_html = re.sub(r'<style.*?>.*?</style>', '', raw_html, flags=re.DOTALL|re.IGNORECASE)
+    raw_html = re.sub(r'<script.*?>.*?</script>', '', raw_html, flags=re.DOTALL|re.IGNORECASE)
+    # Suppression des balises <link> vers wix.com/favicon.ico et <meta name="generator" ... Wix.com Website Builder>
+    raw_html = re.sub(
+        r'<link[^>]+href="https://www\\.wix\\.com/favicon\\.ico"[^>]*>', '', raw_html, flags=re.IGNORECASE)
+    raw_html = re.sub(
+        r'<meta[^>]+content="Wix\\.com Website Builder"[^>]*name="generator"[^>]*>', '', raw_html, flags=re.IGNORECASE)
+    raw_html = re.sub(
+        r'<meta[^>]+name="generator"[^>]*content="Wix\\.com Website Builder"[^>]*>', '', raw_html, flags=re.IGNORECASE)
+
     soup = BeautifulSoup(raw_html, "html.parser")
     if debug:
         print(f"[DEBUG] Extraction du <head> et des balises meta/title...")
@@ -57,7 +66,7 @@ def process_html_file(filepath, outdir, dry_run=False, debug=False):
                 if debug:
                     print(f"[DEBUG] Ignoré (generator/http-equiv) : {tag.name}")
                 continue
-            # Substitution d'URL
+            # Substitution d''URL
             if tag.get("content"):
                 content = tag["content"].replace(WIX_URL, TARGET_URL)
                 if debug and content != tag["content"]:
@@ -166,8 +175,13 @@ def process_html_file(filepath, outdir, dry_run=False, debug=False):
             img_dest = os.path.join(outdir, img_name)
             download_image(src, img_dest, dry_run, debug)
             img["src"] = img_name
+    # Remplacement du bloc Instagram Social Icon par un lien réel vers Instagram avec icône (multilignes) après le traitement BeautifulSoup
+    html_result = f"<!DOCTYPE html>\n<html lang=\"fr\">\n" + new_head.prettify() + pruned_body.prettify() + "\n</html>\n"
+    html_result = re.sub(
+        r'<ul>\s*<li>\s*<a>\s*<img alt="Instagram Social Icon"\s*/>\s*</a>\s*</li>\s*</ul>',
+        '<a href="https://www.instagram.com/henault.michelle/?hl=en" target="_blank" rel="noopener noreferrer" style="display:inline-block;vertical-align:middle;"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" style="width:32px;height:32px;border-radius:6px;vertical-align:middle;"/></a>',
+        html_result, flags=re.DOTALL|re.MULTILINE)
     # Écriture du fichier
-    # Utiliser prettify pour l'indentation
     if not os.path.exists(outdir):
         if dry_run:
             print(f"[DRY-RUN] Créer le dossier : {outdir}")
@@ -182,10 +196,8 @@ def process_html_file(filepath, outdir, dry_run=False, debug=False):
         if debug:
             print(f"Créer {outpath}")
         with open(outpath, "w", encoding="utf-8") as f:
-            f.write(f"<!DOCTYPE html>\n<html lang=\"fr\">\n")
-            f.write(new_head.prettify())
-            f.write(pruned_body.prettify())
-            f.write("\n</html>\n")
+            f.write(html_result)
+    return
 
 def main():
     parser = argparse.ArgumentParser(description="Extraction HTML Michelle Henault")
