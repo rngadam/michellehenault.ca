@@ -36,11 +36,38 @@ async function navHTML() {
     if (!resp.ok) return '';
     const menu = await resp.json();
     function renderMenu(items) {
+      let isPreview = window.location.pathname.includes('/pr-preview/');
+      let basePreviewPath = '';
+      if (isPreview) {
+        const pathParts = window.location.pathname.split('/');
+        // Assuming path is like /pr-preview/NUMBER/...
+        if (pathParts.length >= 3 && pathParts[1] === 'pr-preview') {
+          basePreviewPath = '/' + pathParts[1] + '/' + pathParts[2]; // e.g., /pr-preview/123
+        }
+      }
+
       return '<ul>' + items.map(item => {
+        let finalHref = item.href;
+        // Ensure item.href exists before trying to manipulate it
+        if (isPreview && basePreviewPath && item.href && item.href.startsWith('/')) {
+          // basePreviewPath will be like /pr-preview/123
+          // item.href will be like /some-page/index.html or /
+          // Result: /pr-preview/123/some-page/index.html or /pr-preview/123/
+          finalHref = basePreviewPath + item.href;
+        }
+
         if (item.children && item.children.length) {
-          return `<li class="mh-has-submenu"><span>${item.label}</span>${renderMenu(item.children)}</li>`;
+          let labelContent = item.label;
+          if (item.href) { // If parent itself is a link
+             // Use finalHref here as well, in case the parent link needs modification
+             labelContent = `<a href="${finalHref}">${item.label}</a>`;
+          } else {
+             labelContent = `<span>${item.label}</span>`;
+          }
+          return `<li class="mh-has-submenu">${labelContent}${renderMenu(item.children)}</li>`;
         } else {
-          return `<li><a href="${item.href}">${item.label}</a></li>`;
+          // Ensure finalHref is used for items without children too
+          return `<li><a href="${finalHref}">${item.label}</a></li>`;
         }
       }).join('') + '</ul>';
     }

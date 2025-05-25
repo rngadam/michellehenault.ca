@@ -102,7 +102,7 @@ jobs:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ github.event.number }}
           body: |
-            🚀 PR Preview available at: https://grandtrain.ca/${{ env.preview_subdir }}/
+            🚀 PR Preview available at: https://michellehenault.ca/${{ env.preview_subdir }}/
             (Base content from latest 'main' branch deployment)
             Workflow run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           edit-mode: replace
