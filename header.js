@@ -32,7 +32,7 @@ function socialsHTML() {
 // Fonction pour générer le menu de navigation à partir d'un fichier JSON avec sous-menus
 async function navHTML() {
   try {
-    const resp = await fetch('/menu.json');
+    const resp = await fetch('menu.json');
     if (!resp.ok) return '';
     const menu = await resp.json();
     function renderMenu(items) {
