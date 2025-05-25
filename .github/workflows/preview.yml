@@ -1,0 +1,108 @@
+# .github/workflows/preview.yml
+name: Deploy PR Preview to Pages
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  pull-requests: write
+  actions: read # Required to download artifacts from other workflow runs
+
+concurrency:
+  group: "pages-pr-${{ github.event.number }}"
+  cancel-in-progress: true
+
+jobs:
+  deploy-preview:
+    environment:
+      name: github-pages-pr-preview
+      url: ${{ steps.deployment.outputs.page_url }} # This should be the PR preview URL
+    runs-on: ubuntu-latest
+    steps:
+      - name: Determine Preview Subdirectory Path
+        id: path_vars
+        run: |
+          if [ -z "${{ github.event.number }}" ]; then
+            echo "Error: PR number (github.event.number) is not available."
+            exit 1
+          fi
+          echo "preview_subdir=pr-preview/${{ github.event.number }}" >> $GITHUB_ENV
+          echo "Preview subdirectory will be: pr-preview/${{ github.event.number }}"
+
+      - name: Validate Preview Subdirectory Path # Keep this check
+        run: |
+          if [ -z "${{ env.preview_subdir }}" ]; then
+            echo "Error: env.preview_subdir is empty. This is unexpected."
+            exit 1
+          fi
+
+      # Removed the old "Assemble Combined Artifact" manual git clone step.
+      # New steps for checking out PR code and downloading main site artifact follow.
+
+      - name: Checkout PR code (current branch)
+        uses: actions/checkout@v4
+        with:
+          path: 'pr_code' # Checkout PR code into a specific subdirectory
+
+      - name: Download latest 'main-site-content' artifact
+        uses: dawidd6/action-download-artifact@v6
+        with:
+          workflow: static.yml # Name of the workflow that produces the artifact (or its ID)
+          name: main-site-content # Name of the artifact to download
+          branch: main # Branch from which the workflow run was triggered
+          path: combined_site_artifact # Destination directory for the downloaded artifact
+                                     # The artifact's contents will be placed here.
+          github_token: ${{ secrets.GITHUB_TOKEN }} # Token for authentication
+          # Optional: specify run_id if you need a very specific run, otherwise latest successful is usually fine.
+          # Optional: set 'if_no_artifact_found' to 'fail' (default), 'warn', or 'ignore'.
+
+      - name: Copy PR content into artifact subdirectory
+        run: |
+          ARTIFACT_ROOT="combined_site_artifact" # Should already exist from download step
+          PR_CODE_PATH="pr_code" # Source of PR files
+          PR_DEST_SUBDIR="${{ env.preview_subdir }}" # e.g., pr-preview/123
+
+          echo "Copying PR code from $PR_CODE_PATH to $ARTIFACT_ROOT/$PR_DEST_SUBDIR/"
+          mkdir -p "$ARTIFACT_ROOT/$PR_DEST_SUBDIR"
+          # Copy everything from pr_code checkout, excluding its .git if it exists
+          rsync -av --progress $PR_CODE_PATH/ "$ARTIFACT_ROOT/$PR_DEST_SUBDIR/" --exclude .git
+
+          echo "Listing contents of $ARTIFACT_ROOT directory after combining:"
+          ls -R $ARTIFACT_ROOT
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact for GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'combined_site_artifact'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Post PR Comment with Preview Link (Find Existing)
+        if: success()
+        uses: peter-evans/find-comment@v3
+        id: fc
+        with:
+          issue-number: ${{ github.event.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: '🚀 PR Preview available at:'
+
+      - name: Create or Update PR Comment
+        if: success()
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          comment-id: ${{ steps.fc.outputs.comment-id }}
+          issue-number: ${{ github.event.number }}
+          body: |
+            🚀 PR Preview available at: https://grandtrain.ca/${{ env.preview_subdir }}/
+            (Base content from latest 'main' branch deployment)
+            Workflow run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          edit-mode: replace

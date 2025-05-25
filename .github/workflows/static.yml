@@ -31,13 +31,26 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+
+      - name: Archive production deployment
+        uses: actions/upload-artifact@v4
         with:
-          # Upload entire repository
+          name: main-site-content # Name of the artifact
+          path: | # Paths to include in the artifact
+            ./
+            !./.git # Exclude .git directory
+            !./.github # Exclude .github directory (if not needed for site content)
+          retention-days: 7 # Optional: Keep artifacts for a week
+
+      - name: Setup Pages # For actual deployment to GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact for GitHub Pages deployment
+        uses: actions/upload-pages-artifact@v3 # This is for GitHub Pages
+        with:
+          # Upload entire repository (or specific built site if there was a build step)
           path: '.'
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
