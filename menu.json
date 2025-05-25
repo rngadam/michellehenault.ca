@@ -15,9 +15,7 @@
     { "label": "2016-2017", "href": "/2016-2017/index.html" },
     { "label": "2015", "href": "/2015/index.html" },
     { "label": "Migrations", "href": "/migrations/index.html" },
-    { "label": "Laguna Verde", "href": "/laguna-verde/index.html" },
-    { "label": "Œuvres sur papier", "href": "/oeuvres-sur-papier/index.html" },
-    { "label": "Cartes de vœux", "href": "/cartes-de-voeux-blank-cards/index.html" }
+    { "label": "Laguna Verde", "href": "/laguna-verde/index.html" }
   ]},
   { 
     "label": "Visibilité", 
@@ -26,5 +24,9 @@
       { "label": "Expositions", "href": "/exposition/index.html" },
       { "label": "Exposition 2024 (photos)", "href": "/exposition-2024-photos/index.html" }
     ] 
-  }
+  },
+  { "label": "Boutique", "children": [
+    { "label": "Œuvres sur papier", "href": "/oeuvres-sur-papier/index.html" },
+    { "label": "Cartes de vœux", "href": "/cartes-de-voeux-blank-cards/index.html" }
+  ]}
 ]
